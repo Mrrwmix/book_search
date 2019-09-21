@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
 const path = require("path");
+const route = require("./routes/books");
 
 // connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: false }));
-app.use("/api/books", require("./routes/books"));
+app.use(route);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
