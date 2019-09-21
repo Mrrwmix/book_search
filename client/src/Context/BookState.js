@@ -18,16 +18,21 @@ const BookState = props => {
     dispatch({ type: TEXT_CHANGE, payload: e.target.value });
   };
 
-  const searchBooks = async (e, field) => {
-    e.preventDefault();
+  const searchBooks = async (field = state.searchThis) => {
+    console.log("I'm searching?");
     try {
-      const res = await fetch("/api/books", {
-        method: "POST",
-        body: field
-      });
-      dispatch({ type: SEARCH, payload: res });
+      console.log("I worked?" + field);
+      // const res = await fetch("/api/books", {
+      //   method: "GET",
+      //   body: field,
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   }
+      // });
+      console.log(fetch("/api/books").then(reso => console.log(reso)));
+      // dispatch({ type: SEARCH, payload: res });
     } catch (err) {
-      dispatch({ type: ERRORED, payload: err.response.msg });
+      dispatch({ type: ERRORED });
     }
   };
 

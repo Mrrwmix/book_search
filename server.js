@@ -5,6 +5,7 @@ const path = require("path");
 
 // connectDB();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: false }));
 app.use("/api/books", require("./routes/books"));
 

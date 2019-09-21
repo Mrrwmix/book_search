@@ -5,11 +5,11 @@ const Navbar = () => {
   const bookContext = useContext(BookContext);
   const { searchThis, searchText, searchBooks } = bookContext;
   return (
-    <nav class='navbar navbar-light bg-light justify-content-between'>
-      <a class='navbar-brand'>Home</a>
-      <form class='form-inline'>
+    <nav className='navbar navbar-light bg-light justify-content-between'>
+      <a className='navbar-brand'>Home</a>
+      <div className='form-inline'>
         <input
-          class='form-control mr-sm-2'
+          className='form-control mr-sm-2'
           type='search'
           placeholder='Search'
           aria-label='Search'
@@ -17,12 +17,12 @@ const Navbar = () => {
           onChange={searchText}
         />
         <button
-          class='btn btn-outline-success my-2 my-sm-0'
-          onClick={searchBooks(searchThis)}
+          className='btn btn-outline-success my-2 my-sm-0'
+          onClick={searchBooks}
         >
           Search
         </button>
-      </form>
+      </div>
     </nav>
   );
 };
