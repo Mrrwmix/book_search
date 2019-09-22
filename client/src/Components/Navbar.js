@@ -1,15 +1,12 @@
-import React, { useContext } from "react";
-import BookContext from "../Context/bookContext";
+import React from "react";
 
 const Navbar = () => {
-  const bookContext = useContext(BookContext);
-  const { searchThis, searchText, searchBooks } = bookContext;
   return (
-    <nav className='navbar navbar-light bg-light justify-content-between'>
-      <a className='navbar-brand' href='/' rel='noopener noreferrer'>
+    <nav className='navbar navbar-light bg-primary text-light justify-content-between row'>
+      <a className='btn btn-link' href='/' rel='noopener noreferrer'>
         Home
       </a>
-      <a href='/saved' rel='noopener noreferrer'>
+      <a href='/saved' className='btn btn-link' rel='noopener noreferrer'>
         Saved Books
       </a>
     </nav>

@@ -16,17 +16,19 @@ const Results = () => {
 
   return (
     <Fragment>
-      <div className='jumbotron'>
-        {!searched && (
-          <h1 className='text-info text-center'>
-            Get to Searching for a Book!
-          </h1>
-        )}
-        {searched && (
-          <h1 className='text-primary text-center'>
-            Search Results for {searchThis}
-          </h1>
-        )}
+      <div className='row py-5 bg-secondary'>
+        <div className='col-md-12'>
+          {!searched && (
+            <h1 className='text-dark text-center'>
+              Get to Searching for a Book!
+            </h1>
+          )}
+          {searched && (
+            <h1 className='text-dark text-center'>
+              Search Results for {searchThis}
+            </h1>
+          )}
+        </div>
       </div>
       <div className='row'>
         <div className='col-md-12'>
@@ -70,6 +72,7 @@ const Results = () => {
                 }
                 className='card-img-top img-fluid'
                 alt={result.title}
+                style={{ width: "10vw", height: "20vh", margin: "auto" }}
               />
               <div className='card-body'>
                 <h5 className='card-title'>{result.title}</h5>
@@ -96,6 +99,7 @@ const Results = () => {
                   className='btn btn-secondary btn-block text-light'
                   data-num={result.number}
                   onClick={saveBook}
+                  href='#!'
                 >
                   Save
                 </a>

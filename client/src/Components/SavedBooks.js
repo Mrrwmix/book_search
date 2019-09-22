@@ -12,8 +12,10 @@ const SavedBooks = () => {
   );
   return (
     <Fragment>
-      <div className='jumbotron'>
-        <h1 className='text-center text-success'>Saved Books</h1>
+      <div className='bg-dark row py-5'>
+        <div className='col-md-12'>
+          <h1 className='text-center text-success'>Saved Books</h1>
+        </div>
       </div>
       <div className='row bg-white'>
         {!savedBooks.length && (
@@ -37,6 +39,7 @@ const SavedBooks = () => {
                 }
                 className='card-img-top img-fluid'
                 alt={book.title}
+                style={{ width: "10vw", height: "20vh", margin: "auto" }}
               />
               <div className='card-body'>
                 <h5 className='card-title'>{book.title}</h5>
@@ -63,6 +66,7 @@ const SavedBooks = () => {
                   className='btn btn-danger btn-block text-light'
                   data-num={book._id}
                   onClick={deleteBook}
+                  href='#!'
                 >
                   Delete
                 </a>

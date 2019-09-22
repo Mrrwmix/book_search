@@ -6,7 +6,6 @@ import {
   SAVE,
   SEARCH,
   DELETE,
-  ERRORED,
   TEXT_CHANGE,
   RETRIEVE,
   SET_LOADING
@@ -17,7 +16,6 @@ const BookState = props => {
     savedBooks: [],
     results: [],
     searched: false,
-    error: null,
     searchThis: "",
     loading: null
   };
@@ -29,7 +27,7 @@ const BookState = props => {
     axios
       .get("/api/books")
       .then(response => dispatch({ type: RETRIEVE, payload: response.data }))
-      .catch(err => dispatch({ type: ERRORED }));
+      .catch(err => console.error(err));
   };
 
   const searchText = e => {
@@ -54,7 +52,9 @@ const BookState = props => {
           newArr.push({
             number: x,
             title: response.data[x].volumeInfo.title,
-            image: response.data[x].volumeInfo.imageLinks.smallThumbnail,
+            image: response.data[x].volumeInfo.imageLinks
+              ? response.data[x].volumeInfo.imageLinks.smallThumbnail
+              : "https://media.npr.org/assets/img/2018/11/18/gettyimages-865109088-170667a_wide-f4e3c4a58ad5e1268dec3654c0b2d490e320bba6-s800-c85.jpg",
             authors: response.data[x].volumeInfo.authors,
             description: response.data[x].volumeInfo.description,
             link: response.data[x].volumeInfo.infoLink
@@ -62,7 +62,7 @@ const BookState = props => {
         }
         return dispatch({ type: SEARCH, payload: newArr });
       })
-      .catch(err => dispatch({ type: ERRORED }));
+      .catch(err => console.error(err));
   };
 
   const deleteBook = e => {
@@ -85,7 +85,7 @@ const BookState = props => {
     axios
       .post("/api/saved", myBook)
       .then(response => dispatch({ type: SAVE, payload: response }))
-      .catch(err => dispatch({ type: ERRORED }));
+      .catch(err => console.error(err));
   };
 
   return (
@@ -94,7 +94,6 @@ const BookState = props => {
         savedBooks: state.savedBooks,
         results: state.results,
         searched: state.searched,
-        error: state.error,
         searchThis: state.searchThis,
         searchBooks,
         searchText,

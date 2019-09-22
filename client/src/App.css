@@ -1,3 +1,10 @@
 body {
-  background: teal;
+  background-image: url("./bg.jpg");
+  background-size: 100vh;
+  background-repeat: repeat;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-link {
+  background-color: beige;
 }
