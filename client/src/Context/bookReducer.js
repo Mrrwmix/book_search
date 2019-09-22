@@ -1,29 +1,36 @@
-import { SAVE, SEARCH, DELETE, ERRORED, TEXT_CHANGE, RETRIEVE } from "./types";
+import {
+  SAVE,
+  SEARCH,
+  DELETE,
+  TEXT_CHANGE,
+  RETRIEVE,
+  SET_LOADING
+} from "./types";
 
 export default (state, action) => {
   switch (action.type) {
-    case ERRORED:
+    case SET_LOADING:
       return {
         ...state,
-        error: true
+        loading: true
       };
     case SEARCH:
       return {
         ...state,
-        error: null,
+        loading: false,
         results: action.payload,
         searched: true
       };
     case SAVE:
       return {
         ...state,
-        error: null,
         savedBooks: [...state.savedBooks, action.payload.data]
       };
     case RETRIEVE:
       return {
         ...state,
-        savedBooks: [...action.payload]
+        savedBooks: [...action.payload],
+        loading: false
       };
     case DELETE:
       return {

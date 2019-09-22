@@ -1,11 +1,12 @@
-import React, { Fragment, useContext, useEffect, useCallback } from "react";
+import React, { Fragment, useContext } from "react";
 import BookContext from "../Context/bookContext";
+import Spinner from "./Spinner";
 
 const Results = () => {
   const bookContext = useContext(BookContext);
   const {
     results,
-    error,
+    loading,
     searchThis,
     searched,
     saveBook,
@@ -47,57 +48,61 @@ const Results = () => {
           </div>
         </div>
       </div>
-      <div className='row'>
+      <div className='row bg-white'>
         {!results.length && (
           <div className='col-md-12'>
             <h1 className='text-center text-dark'>No results yet!</h1>
           </div>
         )}
-        {results.map(result => (
-          <div
-            className='card col-md-3'
-            key={result.title.split(" ").join("") + Math.random() * 1000}
-          >
-            <img
-              src={
-                result.image
-                  ? result.image
-                  : "https://media.npr.org/assets/img/2018/11/18/gettyimages-865109088-170667a_wide-f4e3c4a58ad5e1268dec3654c0b2d490e320bba6-s800-c85.jpg"
-              }
-              className='card-img-top img-fluid'
-              alt={result.title}
-            />
-            <div className='card-body'>
-              <h5 className='card-title'>{result.title}</h5>
-              <h6 className='card-subtitle mb-2 text-muted'>
-                {result.authors ? result.authors.join(", ") : "Unknown"}
-              </h6>
-              <div style={{ height: "10rem", overflow: "auto" }}>
-                <p className='card-text'>
-                  {result.description
-                    ? result.description
-                    : "No description provided."}
-                </p>
-              </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          results.map(result => (
+            <div
+              className='card col-md-3'
+              key={result.title.split(" ").join("") + Math.random() * 1000}
+            >
+              <img
+                src={
+                  result.image
+                    ? result.image
+                    : "https://media.npr.org/assets/img/2018/11/18/gettyimages-865109088-170667a_wide-f4e3c4a58ad5e1268dec3654c0b2d490e320bba6-s800-c85.jpg"
+                }
+                className='card-img-top img-fluid'
+                alt={result.title}
+              />
+              <div className='card-body'>
+                <h5 className='card-title'>{result.title}</h5>
+                <h6 className='card-subtitle mb-2 text-muted'>
+                  {result.authors ? result.authors.join(", ") : "Unknown"}
+                </h6>
+                <div style={{ height: "10rem", overflow: "auto" }}>
+                  <p className='card-text'>
+                    {result.description
+                      ? result.description
+                      : "No description provided."}
+                  </p>
+                </div>
 
-              <a
-                href={result.link}
-                className='btn btn-primary btn-block'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                View
-              </a>
-              <a
-                className='btn btn-secondary btn-block text-light'
-                data-num={result.number}
-                onClick={saveBook}
-              >
-                Save
-              </a>
+                <a
+                  href={result.link}
+                  className='btn btn-primary btn-block'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  View
+                </a>
+                <a
+                  className='btn btn-secondary btn-block text-light'
+                  data-num={result.number}
+                  onClick={saveBook}
+                >
+                  Save
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </Fragment>
   );
