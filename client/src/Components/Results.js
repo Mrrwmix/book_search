@@ -3,7 +3,15 @@ import BookContext from "../Context/bookContext";
 
 const Results = () => {
   const bookContext = useContext(BookContext);
-  const { results, error, searchThis, searched, saveBook } = bookContext;
+  const {
+    results,
+    error,
+    searchThis,
+    searched,
+    saveBook,
+    searchText,
+    searchBooks
+  } = bookContext;
 
   return (
     <Fragment>
@@ -18,6 +26,26 @@ const Results = () => {
             Search Results for {searchThis}
           </h1>
         )}
+      </div>
+      <div className='row'>
+        <div className='col-md-12'>
+          <div className='input-group-lg input-group mb-1'>
+            <input
+              className='form-control mr-sm-2'
+              type='search'
+              placeholder='Search'
+              aria-label='Search'
+              value={searchThis}
+              onChange={searchText}
+            />
+            <button
+              className='btn btn-outline-success my-2 my-sm-0'
+              onClick={searchBooks}
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </div>
       <div className='row'>
         {!results.length && (

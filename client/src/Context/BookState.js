@@ -56,9 +56,8 @@ const BookState = props => {
 
   const deleteBook = e => {
     let theID = e.target.getAttribute("data-num");
-    console.log(theID);
     axios.delete(`/api/books/${theID}`);
-    dispatch({ TYPE: DELETE, payload: theID });
+    dispatch({ type: DELETE, payload: theID });
   };
 
   const saveBook = e => {

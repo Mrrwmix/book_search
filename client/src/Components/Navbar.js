@@ -12,22 +12,6 @@ const Navbar = () => {
       <a href='/saved' rel='noopener noreferrer'>
         Saved Books
       </a>
-      <div className='form-inline'>
-        <input
-          className='form-control mr-sm-2'
-          type='search'
-          placeholder='Search'
-          aria-label='Search'
-          value={searchThis}
-          onChange={searchText}
-        />
-        <button
-          className='btn btn-outline-success my-2 my-sm-0'
-          onClick={searchBooks}
-        >
-          Search
-        </button>
-      </div>
     </nav>
   );
 };
