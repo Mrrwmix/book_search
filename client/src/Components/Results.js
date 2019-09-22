@@ -95,14 +95,13 @@ const Results = () => {
                 >
                   View
                 </a>
-                <a
+                <button
                   className='btn btn-secondary btn-block text-light'
                   data-num={result.number}
                   onClick={saveBook}
-                  href='#!'
                 >
                   Save
-                </a>
+                </button>
               </div>
             </div>
           ))
