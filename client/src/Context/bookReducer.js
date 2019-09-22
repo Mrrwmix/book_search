@@ -14,6 +14,12 @@ export default (state, action) => {
         results: action.payload,
         searched: true
       };
+    case SAVE:
+      return {
+        ...state,
+        error: null,
+        savedBooks: [...state.savedBooks, action.payload.data]
+      };
     case TEXT_CHANGE:
       return {
         ...state,

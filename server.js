@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const route = require("./routes/books");
 
-// connectDB();
+connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));

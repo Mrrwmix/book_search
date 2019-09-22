@@ -15,6 +15,13 @@ const BookState = props => {
 
   const [state, dispatch] = useReducer(bookReducer, initialState);
 
+  const findSavedBooks = () => {
+    axios
+      .get("/api/books")
+      .then(response => dispatch({ type: SAVE, payload: response.data }))
+      .catch(err => dispatch({ type: ERRORED }));
+  };
+
   const searchText = e => {
     dispatch({ type: TEXT_CHANGE, payload: e.target.value });
   };
@@ -51,8 +58,21 @@ const BookState = props => {
     // interact with api
   };
 
-  const saveBook = async id => {
-    // interact with api
+  const saveBook = e => {
+    let myBook = {
+      title: state.results[e.target.getAttribute("data-num")].title,
+      image: state.results[e.target.getAttribute("data-num")].image,
+      authors: state.results[e.target.getAttribute("data-num")].authors,
+      description: state.results[e.target.getAttribute("data-num")].description,
+      link: state.results[e.target.getAttribute("data-num")].link
+    };
+    console.log(myBook);
+    e.target.innerText = "Saved!";
+    e.target.className = "btn btn-danger btn-block text-light";
+    axios
+      .post("/api/saved", myBook)
+      .then(response => dispatch({ type: SAVE, payload: response }))
+      .catch(err => dispatch({ type: ERRORED }));
   };
 
   return (

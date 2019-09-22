@@ -4,25 +4,12 @@ const Saved = require("../models/Saved");
 const axios = require("axios");
 
 router.get("/api/books", (req, res) => {
-  axios(`https://www.googleapis.com/books/v1/volumes?q=test`)
+  Saved.find({})
     .then(resp => {
-      res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-Requested-With,content-type"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", true);
-      res.json(resp.data.items);
-      console.log(resp.data.items);
+      console.log(resp);
+      res.send(resp);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send("Nothing received!");
-    });
+    .catch(err => console.error(err));
 });
 
 router.post("/api/books", (req, res) => {
@@ -46,6 +33,16 @@ router.post("/api/books", (req, res) => {
       console.error(err);
       res.status(500).send("Nothing received!");
     });
+});
+
+router.post("/api/saved", (req, res) => {
+  console.log(`req.body is ${req.body}`);
+  Saved.create(req.body)
+    .then(function(added) {
+      console.log(added);
+      res.send(added);
+    })
+    .catch(err => console.error(err));
 });
 
 router.delete("/api/books/:id", (req, res) => {

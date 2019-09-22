@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraping";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
 
 const connectDB = async () => {
   try {

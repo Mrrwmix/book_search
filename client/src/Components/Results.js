@@ -3,7 +3,7 @@ import BookContext from "../Context/bookContext";
 
 const Results = () => {
   const bookContext = useContext(BookContext);
-  const { results, error, searchThis, searched } = bookContext;
+  const { results, error, searchThis, searched, saveBook } = bookContext;
 
   return (
     <Fragment>
@@ -28,8 +28,7 @@ const Results = () => {
         {results.map(result => (
           <div
             className='card col-md-3'
-            key={result.title.split(" ").join("")}
-            data-num={result.number}
+            key={result.title.split(" ").join("") + Math.random() * 1000}
           >
             <img
               src={
@@ -43,7 +42,7 @@ const Results = () => {
             <div className='card-body'>
               <h5 className='card-title'>{result.title}</h5>
               <h6 className='card-subtitle mb-2 text-muted'>
-                {result.authors.join(", ")}
+                {result.authors ? result.authors.join(", ") : "Unknown"}
               </h6>
               <div style={{ height: "10rem", overflow: "auto" }}>
                 <p className='card-text'>
@@ -63,8 +62,8 @@ const Results = () => {
               </a>
               <a
                 className='btn btn-secondary btn-block text-light'
-                target='_blank'
-                rel='noopener noreferrer'
+                data-num={result.number}
+                onClick={saveBook}
               >
                 Save
               </a>
