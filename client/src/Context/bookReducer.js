@@ -11,7 +11,8 @@ export default (state, action) => {
       return {
         ...state,
         error: null,
-        results: action.payload
+        results: action.payload,
+        searched: true
       };
     case TEXT_CHANGE:
       return {

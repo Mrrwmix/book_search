@@ -22,7 +22,7 @@ const BookState = props => {
   const searchBooks = () => {
     axios
       .post(
-        "http://localhost:5000/api/books",
+        "/api/books",
         { field: state.searchThis },
         {
           headers: {
@@ -34,15 +34,15 @@ const BookState = props => {
         let newArr = [];
         for (let x in response.data) {
           newArr.push({
+            number: x,
             title: response.data[x].volumeInfo.title,
-            image: response.data[x].volumeInfo.imageLinks.thumbnail,
+            image: response.data[x].volumeInfo.imageLinks.smallThumbnail,
             authors: response.data[x].volumeInfo.authors,
             description: response.data[x].volumeInfo.description,
             link: response.data[x].volumeInfo.infoLink
           });
         }
-        alert(newArr);
-        dispatch({ type: SEARCH, payload: newArr });
+        return dispatch({ type: SEARCH, payload: newArr });
       })
       .catch(err => dispatch({ type: ERRORED }));
   };

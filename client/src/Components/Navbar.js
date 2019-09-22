@@ -6,7 +6,12 @@ const Navbar = () => {
   const { searchThis, searchText, searchBooks } = bookContext;
   return (
     <nav className='navbar navbar-light bg-light justify-content-between'>
-      <a className='navbar-brand'>Home</a>
+      <a className='navbar-brand' href='/' rel='noopener noreferrer'>
+        Home
+      </a>
+      <a href='/saved' rel='noopener noreferrer'>
+        Saved Books
+      </a>
       <div className='form-inline'>
         <input
           className='form-control mr-sm-2'
