@@ -1,13 +1,15 @@
 const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
+const cors = require("cors");
 const path = require("path");
 const route = require("./routes/books");
 
 // connectDB();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ extended: false }));
+app.use(express.json({ extended: true }));
+app.options("*", cors());
 app.use(route);
 
 if (process.env.NODE_ENV === "production") {

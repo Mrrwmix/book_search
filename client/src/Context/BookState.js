@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import bookContext from "./bookContext";
 import bookReducer from "./bookReducer";
+import axios from "axios";
 import { SAVE, SEARCH, DELETE, ERRORED, TEXT_CHANGE } from "./types";
 
 const BookState = props => {
@@ -18,22 +19,32 @@ const BookState = props => {
     dispatch({ type: TEXT_CHANGE, payload: e.target.value });
   };
 
-  const searchBooks = async (field = state.searchThis) => {
-    console.log("I'm searching?");
-    try {
-      console.log("I worked?" + field);
-      // const res = await fetch("/api/books", {
-      //   method: "GET",
-      //   body: field,
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   }
-      // });
-      console.log(fetch("/api/books").then(reso => console.log(reso)));
-      // dispatch({ type: SEARCH, payload: res });
-    } catch (err) {
-      dispatch({ type: ERRORED });
-    }
+  const searchBooks = () => {
+    axios
+      .post(
+        "http://localhost:5000/api/books",
+        { field: state.searchThis },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then(response => {
+        let newArr = [];
+        for (let x in response.data) {
+          newArr.push({
+            title: response.data[x].volumeInfo.title,
+            image: response.data[x].volumeInfo.imageLinks.thumbnail,
+            authors: response.data[x].volumeInfo.authors,
+            description: response.data[x].volumeInfo.description,
+            link: response.data[x].volumeInfo.infoLink
+          });
+        }
+        alert(newArr);
+        dispatch({ type: SEARCH, payload: newArr });
+      })
+      .catch(err => dispatch({ type: ERRORED }));
   };
 
   const deleteBook = async book => {
