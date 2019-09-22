@@ -46,7 +46,12 @@ router.post("/api/saved", (req, res) => {
 });
 
 router.delete("/api/books/:id", (req, res) => {
-  let deleteMe = req.params.id;
+  Saved.deleteOne({ _id: req.params.id })
+    .then(function(deleted) {
+      console.log(deleted);
+      res.status(200).send("DELETED!");
+    })
+    .catch(err => console.error(err));
 });
 
 module.exports = router;

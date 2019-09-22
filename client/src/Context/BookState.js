@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import bookContext from "./bookContext";
 import bookReducer from "./bookReducer";
 import axios from "axios";
-import { SAVE, SEARCH, DELETE, ERRORED, TEXT_CHANGE } from "./types";
+import { SAVE, SEARCH, DELETE, ERRORED, TEXT_CHANGE, RETRIEVE } from "./types";
 
 const BookState = props => {
   const initialState = {
@@ -18,7 +18,7 @@ const BookState = props => {
   const findSavedBooks = () => {
     axios
       .get("/api/books")
-      .then(response => dispatch({ type: SAVE, payload: response.data }))
+      .then(response => dispatch({ type: RETRIEVE, payload: response.data }))
       .catch(err => dispatch({ type: ERRORED }));
   };
 
@@ -54,8 +54,11 @@ const BookState = props => {
       .catch(err => dispatch({ type: ERRORED }));
   };
 
-  const deleteBook = async book => {
-    // interact with api
+  const deleteBook = e => {
+    let theID = e.target.getAttribute("data-num");
+    console.log(theID);
+    axios.delete(`/api/books/${theID}`);
+    dispatch({ TYPE: DELETE, payload: theID });
   };
 
   const saveBook = e => {
@@ -86,7 +89,8 @@ const BookState = props => {
         searchBooks,
         searchText,
         deleteBook,
-        saveBook
+        saveBook,
+        findSavedBooks
       }}
     >
       {props.children}
